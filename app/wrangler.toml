@@ -1,5 +1,5 @@
-[site]
-bucket = "./dist"
+compatibility_date = "2026-08-17"
+pages_build_output_dir = "dist"
 
 [build]
-command = "npm install && npm run build"
+command = "npm install --include=dev --engine-strict=false && npm run build"
