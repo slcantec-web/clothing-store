@@ -11,7 +11,7 @@ interface CartContextValue {
   count: number
   total: number
   isOpen: boolean
-  lastAdded: string | null
+  lastAddedId: string | null
   openCart: () => void
   closeCart: () => void
   addItem: (product: Product) => void
@@ -32,7 +32,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }
   })
   const [isOpen, setIsOpen] = useState(false)
-  const [lastAdded, setLastAdded] = useState<string | null>(null)
+  const [lastAddedId, setLastAddedId] = useState<string | null>(null)
 
   useEffect(() => {
     try {
@@ -43,10 +43,10 @@ export function CartProvider({ children }: { children: ReactNode }) {
   }, [items])
 
   useEffect(() => {
-    if (!lastAdded) return
-    const t = setTimeout(() => setLastAdded(null), 2600)
+    if (!lastAddedId) return
+    const t = setTimeout(() => setLastAddedId(null), 2600)
     return () => clearTimeout(t)
-  }, [lastAdded])
+  }, [lastAddedId])
 
   const value = useMemo<CartContextValue>(() => {
     const count = items.reduce((s, i) => s + i.qty, 0)
@@ -56,7 +56,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       count,
       total,
       isOpen,
-      lastAdded,
+      lastAddedId,
       openCart: () => setIsOpen(true),
       closeCart: () => setIsOpen(false),
       addItem: (product) => {
@@ -67,7 +67,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
           }
           return [...prev, { product, qty: 1 }]
         })
-        setLastAdded(product.name)
+        setLastAddedId(product.id)
       },
       removeItem: (id) => setItems((prev) => prev.filter((i) => i.product.id !== id)),
       setQty: (id, qty) =>
@@ -77,7 +77,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
             : prev.map((i) => (i.product.id === id ? { ...i, qty } : i)),
         ),
     }
-  }, [items, isOpen, lastAdded])
+  }, [items, isOpen, lastAddedId])
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>
 }

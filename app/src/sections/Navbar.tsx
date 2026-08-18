@@ -1,18 +1,24 @@
 import { useEffect, useState } from 'react'
-import { ShoppingBag, Menu, X, Check } from 'lucide-react'
+import { ShoppingBag, Menu, X, Check, Languages } from 'lucide-react'
 import { useCart } from '@/lib/cart'
-
-const links = [
-  { label: 'New In', href: '#new-in' },
-  { label: 'Collections', href: '#collections' },
-  { label: 'Atelier', href: '#atelier' },
-  { label: 'Journal', href: '#journal' },
-]
+import { useLanguage } from '@/lib/i18n'
 
 export default function Navbar() {
-  const { count, openCart, lastAdded } = useCart()
+  const { count, openCart, lastAddedId } = useCart()
+  const { t, language, toggleLanguage } = useLanguage()
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+
+  const links = [
+    { label: t.nav.newIn, href: '#new-in' },
+    { label: t.nav.collections, href: '#collections' },
+    { label: t.nav.atelier, href: '#atelier' },
+    { label: t.nav.journal, href: '#journal' },
+  ]
+
+  const lastAddedName = lastAddedId
+    ? t.products[lastAddedId as keyof typeof t.products]?.name
+    : null
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
@@ -58,7 +64,7 @@ export default function Navbar() {
             </span>
           </a>
 
-          <div className="flex flex-1 items-center justify-end gap-8">
+          <div className="flex flex-1 items-center justify-end gap-3 sm:gap-8">
             <nav className="hidden items-center gap-8 lg:flex">
               {links.slice(2).map((l) => (
                 <a
@@ -71,6 +77,16 @@ export default function Navbar() {
                 </a>
               ))}
             </nav>
+
+            <button
+              onClick={toggleLanguage}
+              className="flex items-center gap-1.5 rounded-full border border-ink/20 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.15em] text-ink/70 transition-colors hover:border-ink hover:text-ink"
+              aria-label="Switch language"
+            >
+              <Languages className="h-3.5 w-3.5" strokeWidth={1.5} />
+              {language === 'en' ? 'සිං' : 'EN'}
+            </button>
+
             <button
               onClick={openCart}
               className="relative rounded-full p-2 transition-colors hover:bg-ink/5"
@@ -110,12 +126,12 @@ export default function Navbar() {
       {/* added-to-bag toast */}
       <div
         className={`fixed bottom-6 left-1/2 z-50 flex -translate-x-1/2 items-center gap-2.5 rounded-full bg-ink px-5 py-3 text-ivory shadow-xl transition-all duration-500 ${
-          lastAdded ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0 pointer-events-none'
+          lastAddedId ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0 pointer-events-none'
         }`}
       >
         <Check className="h-4 w-4 text-camel" strokeWidth={2} />
         <span className="text-xs tracking-wide">
-          <span className="font-medium">{lastAdded}</span> added to your bag
+          <span className="font-medium">{lastAddedName}</span> {t.nav.addedToBag}
         </span>
       </div>
     </>

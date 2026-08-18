@@ -1,6 +1,9 @@
 import { ArrowDown, ArrowRight } from 'lucide-react'
+import { useLanguage } from '@/lib/i18n'
 
 export default function Hero() {
+  const { t } = useLanguage()
+
   return (
     <section id="top" className="relative min-h-svh overflow-hidden">
       {/* background image */}
@@ -19,20 +22,19 @@ export default function Hero() {
         <div className="max-w-2xl">
           <p className="reveal mb-6 flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.3em] text-ink/60">
             <span className="inline-block h-px w-10 bg-camel" />
-            Autumn — Winter 2025 · Drop 01
+            {t.hero.eyebrow}
           </p>
           <h1 className="font-display text-[13vw] leading-[0.95] text-ink sm:text-7xl md:text-[6.5rem]">
-            <span className="reveal block">Dress in</span>
+            <span className="reveal block">{t.hero.titleLine1}</span>
             <span className="reveal block italic text-camel" style={{ transitionDelay: '120ms' }}>
-              quiet luxury
+              {t.hero.titleLine2}
             </span>
           </h1>
           <p
             className="reveal mt-7 max-w-md text-[15px] leading-relaxed text-ink/65"
             style={{ transitionDelay: '240ms' }}
           >
-            Considered essentials cut from natural fibres — wool, cashmere, flax — made in small
-            batches by ateliers we know by name. No logos. No noise. Just clothes that last.
+            {t.hero.body}
           </p>
           <div
             className="reveal mt-10 flex flex-wrap items-center gap-4"
@@ -42,14 +44,14 @@ export default function Hero() {
               href="#new-in"
               className="group inline-flex items-center gap-3 bg-ink px-8 py-4 text-[11px] font-semibold uppercase tracking-[0.25em] text-ivory transition-colors hover:bg-camel"
             >
-              Shop new in
+              {t.hero.shopNewIn}
               <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" strokeWidth={1.5} />
             </a>
             <a
               href="#atelier"
               className="inline-flex items-center gap-3 border border-ink/30 px-8 py-4 text-[11px] font-semibold uppercase tracking-[0.25em] text-ink transition-colors hover:border-ink hover:bg-ink hover:text-ivory"
             >
-              Our story
+              {t.hero.ourStory}
             </a>
           </div>
         </div>
@@ -61,7 +63,7 @@ export default function Hero() {
         className="absolute bottom-8 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-2 text-ink/50 transition-colors hover:text-ink md:flex"
         aria-label="Scroll to new arrivals"
       >
-        <span className="text-[10px] uppercase tracking-[0.3em]">Scroll</span>
+        <span className="text-[10px] uppercase tracking-[0.3em]">{t.hero.scroll}</span>
         <ArrowDown className="h-4 w-4 animate-bounce" strokeWidth={1.5} />
       </a>
     </section>

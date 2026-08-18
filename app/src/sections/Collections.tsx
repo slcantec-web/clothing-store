@@ -1,35 +1,30 @@
 import { ArrowUpRight } from 'lucide-react'
-
-const collections = [
-  {
-    name: 'Women',
-    note: '34 pieces · coats, knits, tailoring',
-    image: 'images/collection-women.jpg',
-  },
-  {
-    name: 'Men',
-    note: '28 pieces · shirting, outerwear, denim',
-    image: 'images/collection-men.jpg',
-  },
-]
+import { useLanguage } from '@/lib/i18n'
 
 export default function Collections() {
+  const { t } = useLanguage()
+
+  const collections = [
+    { key: 'women', ...t.collections.women, image: 'images/collection-women.jpg' },
+    { key: 'men', ...t.collections.men, image: 'images/collection-men.jpg' },
+  ]
+
   return (
     <section id="collections" className="bg-sand/60 py-24 md:py-32">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="mb-14 text-center">
           <p className="reveal mb-4 text-[11px] font-semibold uppercase tracking-[0.3em] text-camel">
-            02 — Collections
+            {t.collections.eyebrow}
           </p>
           <h2 className="reveal font-display text-5xl leading-none text-ink md:text-6xl">
-            Two wardrobes, <span className="italic">one language</span>
+            {t.collections.titlePlain} <span className="italic">{t.collections.titleItalic}</span>
           </h2>
         </div>
 
         <div className="grid gap-6 md:grid-cols-2">
           {collections.map((c, idx) => (
             <a
-              key={c.name}
+              key={c.key}
               href="#new-in"
               className="reveal group relative block aspect-[4/3] overflow-hidden md:aspect-[3/2]"
               style={{ transitionDelay: `${idx * 120}ms` }}

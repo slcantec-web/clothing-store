@@ -84,8 +84,8 @@ module.exports = {
         "caret-blink": "caret-blink 1.25s ease-out infinite",
       },
       fontFamily: {
-        display: ['"Cormorant Garamond"', 'Georgia', '"Times New Roman"', 'serif'],
-        body: ['Manrope', 'ui-sans-serif', 'system-ui', '-apple-system', '"Segoe UI"', 'sans-serif'],
+        display: ['"Cormorant Garamond"', '"Noto Sans Sinhala"', 'Georgia', '"Times New Roman"', 'serif'],
+        body: ['Manrope', '"Noto Sans Sinhala"', 'ui-sans-serif', 'system-ui', '-apple-system', '"Segoe UI"', 'sans-serif'],
       },
     },
   },
