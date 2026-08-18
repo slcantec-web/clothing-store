@@ -141,6 +141,54 @@ html {
   letter-spacing: 0.01em;
 }
 
+/* Noto Sans Sinhala renders noticeably larger than Cormorant Garamond/Manrope
+   at the same font-size (taller x-height, heavier default metrics), which
+   made Sinhala text overflow and look mismatched against the English layout.
+   Scale the root font-size down for Sinhala so every rem-based Tailwind
+   text-size utility (text-xs…text-7xl, including their sm:/md: responsive
+   variants) shrinks proportionally and matches the English design. */
+html:lang(si) {
+  font-size: 87%;
+}
+
+/* Arbitrary pixel/viewport-based sizes aren't rem-relative, so the root
+   scaling above doesn't reach them — correct each one used in the design. */
+:lang(si) [class*="text-[13vw]"] {
+  font-size: 11vw;
+}
+:lang(si) [class*="text-[6.5rem]"] {
+  font-size: 5.4rem;
+}
+:lang(si) [class*="text-[22px]"] {
+  font-size: 19px;
+}
+:lang(si) [class*="text-[15px]"] {
+  font-size: 13px;
+}
+:lang(si) [class*="text-[11px]"] {
+  font-size: 9.5px;
+}
+:lang(si) [class*="text-[10px]"] {
+  font-size: 9px;
+}
+
+/* Sinhala vowel signs/conjuncts need a touch more line-height than the tight
+   Latin leading used across the design, so headings and body copy don't feel
+   cramped once the script (and its size) changes. */
+:lang(si) [class*="leading-none"] {
+  line-height: 1.25;
+}
+:lang(si) [class*="leading-tight"] {
+  line-height: 1.3;
+}
+:lang(si) [class*="leading-snug"] {
+  line-height: 1.45;
+}
+:lang(si) [class*="leading-[0.95]"],
+:lang(si) [class*="leading-[1.02]"] {
+  line-height: 1.25;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .reveal {
     opacity: 1;
